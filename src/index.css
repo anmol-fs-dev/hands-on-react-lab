@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+:root {
+  --bg-color: #0d1117;
+  --text-primary: #e6edf3;
+  --text-secondary: #8b949e;
+  --card-bg: rgba(22, 27, 34, 0.6);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --accent-color: #58a6ff;
+  --accent-hover: #79c0ff;
+  --error-color: #f85149;
+  --nav-bg: rgba(13, 17, 23, 0.85);
+  --body-gradient: radial-gradient(circle at top left, #1f2937, #0d1117 80%);
+  --overlay-bg: rgba(13, 17, 23, 0.7);
+}
+
+.light-theme {
+  --bg-color: #f6f8fa;
+  --text-primary: #1f2328;
+  --text-secondary: #656d76;
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --card-border: rgba(31, 35, 40, 0.15);
+  --accent-color: #0969da;
+  --accent-hover: #0842a2;
+  --error-color: #cf222e;
+  --nav-bg: rgba(255, 255, 255, 0.85);
+  --body-gradient: radial-gradient(circle at top left, #ffffff, #f6f8fa 80%);
+  --overlay-bg: rgba(255, 255, 255, 0.7);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  background: var(--body-gradient);
+  background-attachment: fixed;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3 {
+  color: var(--text-primary);
+  font-weight: 700;
+}
