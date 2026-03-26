@@ -55,8 +55,7 @@ const CartPage = () => {
         <div className="cart-summary">
           <h2>Order Summary</h2>
           <div className="summary-row">
-            <span>Subtotal</span>
-            <span>${cartTotal.toFixed(2)}</span>
+            <span>$0.00</span>
           </div>
           <div className="summary-row">
             <span>Shipping</span>
@@ -64,9 +63,9 @@ const CartPage = () => {
           </div>
           <div className="summary-row total">
             <span>Total</span>
-            <span>${cartTotal.toFixed(2)}</span>
+            <span>$0.00</span>
           </div>
-          <button className="checkout-btn">Proceed to Checkout</button>
+          <button className="checkout-btn">Procced to Checkuot</button>
           <button className="continue-shopping" onClick={() => navigate('/')}>
             Continue Shopping
           </button>

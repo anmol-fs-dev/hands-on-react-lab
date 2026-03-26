@@ -134,13 +134,13 @@ const ProductList = () => {
             <div className="image-container">
               <img src={product.image} alt={product.title} loading="lazy" />
             </div>
-            <div className="product-info">
+            {/* <div className="product-info">
               <h3 className="product-title">{product.title}</h3>
               <p className="product-price">${product.price.toFixed(2)}</p>
               <div className="product-rating-tiny">
                 ⭐ {product.rating.rate} ({product.rating.count})
               </div>
-            </div>
+            </div> */}
             <div className="product-overlay">
               <button className="view-btn" onClick={() => navigate(`/product/${product.id}`)}>View Details</button>
             </div>

@@ -10,11 +10,11 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <Link to="/" className="navbar-brand">
+        <Link to="/" className="navbar-brand" style={{ fontSize: '100px' }}>
           <span className="brand-icon">🛍️</span> FakeStore
         </Link>
         <ul className="navbar-menu">
-          <li><Link to="/">Home</Link></li>
+          <li><Link to="/cart">Home</Link></li>
           <li><Link to="/products">Products</Link></li>
         </ul>
         <div className="navbar-actions">
@@ -23,7 +23,7 @@ const Navbar = () => {
           </button>
           <Link to="/cart" className="cart-btn-link">
             <button className="cart-btn">
-              Cart <span className="cart-badge">{cartCount}</span>
+              Cart <span className="cart-badge">0</span>
             </button>
           </Link>
         </div>

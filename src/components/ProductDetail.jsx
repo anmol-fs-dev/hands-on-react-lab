@@ -80,8 +80,9 @@ const ProductDetail = () => {
           </div>
           <p className="detail-description">{product.description}</p>
           <button 
-            className="add-to-cart-btn-large"
+            className="add-to-cart-btn"
             onClick={() => addToCart(product)}
+            style={{ opacity: 0 }}
           >
             Add to Cart
           </button>
