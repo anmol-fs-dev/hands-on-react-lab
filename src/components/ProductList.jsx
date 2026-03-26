@@ -5,6 +5,8 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [ratingFilter, setRatingFilter] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(8);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -28,11 +30,27 @@ const ProductList = () => {
     fetchProducts();
   }, []);
 
+  // Reset to first page when filtering or searching
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, ratingFilter]);
+
   const filteredProducts = products.filter(product => {
     const matchesRating = product.rating.rate >= ratingFilter;
     const matchesSearch = product.title.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesRating && matchesSearch;
   });
+
+  // Calculate pagination
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredProducts.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   if (isLoading) {
     return (
@@ -91,7 +109,7 @@ const ProductList = () => {
       </div>
 
       <div className="product-grid">
-        {filteredProducts.map((product) => (
+        {currentItems.map((product) => (
           <div key={product.id} className="product-card">
             <div className="image-container">
               <img src={product.image} alt={product.title} loading="lazy" />
@@ -109,6 +127,39 @@ const ProductList = () => {
           </div>
         ))}
       </div>
+
+      {filteredProducts.length > itemsPerPage && (
+        <div className="pagination">
+          <button 
+            className="pagination-btn" 
+            disabled={currentPage === 1}
+            onClick={() => paginate(currentPage - 1)}
+          >
+            Previous
+          </button>
+          
+          <div className="page-numbers">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
+              <button
+                key={number}
+                className={`page-number ${currentPage === number ? 'active' : ''}`}
+                onClick={() => paginate(number)}
+              >
+                {number}
+              </button>
+            ))}
+          </div>
+
+          <button 
+            className="pagination-btn" 
+            disabled={currentPage === totalPages}
+            onClick={() => paginate(currentPage + 1)}
+          >
+            Next
+          </button>
+        </div>
+      )}
+
       {filteredProducts.length === 0 && (
         <div className="empty-filter">
           <p>No products match your current filtering criteria.</p>
