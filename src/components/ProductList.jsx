@@ -14,6 +14,8 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        // Intentional delay to show skeletons
+        await new Promise(resolve => setTimeout(resolve, 1500));
         const response = await fetch('https://fakestoreapi.com/products');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -54,9 +56,27 @@ const ProductList = () => {
 
   if (isLoading) {
     return (
-      <div className="loader-container">
-        <div className="loader"></div>
-        <p>Loading premium products...</p>
+      <div className="product-container">
+        <header className="product-header">
+          <h1>Discover Top Products</h1>
+          <p>Curated just for you from the Fake Store API</p>
+        </header>
+
+        <div className="controls-bar">
+          <div className="search-bar skeleton"></div>
+          <div className="filter-controls skeleton" style={{ width: '300px', height: '40px' }}></div>
+        </div>
+
+        <div className="product-grid">
+          {[...Array(8)].map((_, i) => (
+            <div key={i} className="skeleton-card">
+              <div className="skeleton-image skeleton"></div>
+              <div className="skeleton-title skeleton"></div>
+              <div className="skeleton-text skeleton"></div>
+              <div className="skeleton-price skeleton"></div>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }

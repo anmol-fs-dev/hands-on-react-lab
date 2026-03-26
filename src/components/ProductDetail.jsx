@@ -13,9 +13,11 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
+        // Intentional delay to show skeletons
+        await new Promise(resolve => setTimeout(resolve, 1500));
         const response = await fetch(`https://fakestoreapi.com/products/${id}`);
         if (!response.ok) {
-          throw new Error('Product not found or Network error');
+          throw new Error('Product not found');
         }
         const data = await response.json();
         setProduct(data);
@@ -25,14 +27,26 @@ const ProductDetail = () => {
         setIsLoading(false);
       }
     };
+
     fetchProduct();
   }, [id]);
 
   if (isLoading) {
     return (
-      <div className="loader-container">
-        <div className="loader"></div>
-        <p>Loading product details...</p>
+      <div className="product-detail-page">
+        <button className="back-btn"><span className="arrow">←</span> Back to Collection</button>
+        <div className="skeleton-detail">
+          <div className="skeleton-detail-image skeleton"></div>
+          <div className="skeleton-detail-info">
+            <div className="skeleton-title skeleton"></div>
+            <div className="skeleton-text skeleton" style={{ width: '40%' }}></div>
+            <div className="skeleton-price skeleton"></div>
+            <div className="skeleton-text skeleton"></div>
+            <div className="skeleton-text skeleton"></div>
+            <div className="skeleton-text skeleton" style={{ width: '80%' }}></div>
+            <div className="add-to-cart-btn-large skeleton"></div>
+          </div>
+        </div>
       </div>
     );
   }
