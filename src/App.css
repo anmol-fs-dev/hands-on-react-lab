@@ -1506,6 +1506,26 @@
   gap: 1.5rem;
 }
 
+.mock-data-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 193, 7, 0.1);
+  color: #ffc107;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-top: 1rem;
+  border: 1px solid rgba(255, 193, 7, 0.2);
+}
+
+.light-theme .mock-data-indicator {
+  background: #fff8e1;
+  color: #856404;
+  border-color: #ffeeba;
+}
+
 @media (max-width: 768px) {
   .skeleton-detail {
     flex-direction: column;

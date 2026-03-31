@@ -23,7 +23,7 @@ const Navbar = () => {
           </button>
           <Link to="/cart" className="cart-btn-link">
             <button className="cart-btn">
-              Cart <span className="cart-badge">0</span>
+              Cart <span className="cart-badge">{cartCount}</span>
             </button>
           </Link>
         </div>

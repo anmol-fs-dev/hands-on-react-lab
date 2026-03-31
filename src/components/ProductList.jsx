@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { mockProducts } from '../data/mockProducts';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
+  const [isUsingMockData, setIsUsingMockData] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [ratingFilter, setRatingFilter] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,8 +24,12 @@ const ProductList = () => {
         }
         const data = await response.json();
         setProducts(data);
+        setIsUsingMockData(false);
       } catch (err) {
-        setError(err.message);
+        console.warn('API is unreachable, falling back to mock data:', err.message);
+        setProducts(mockProducts);
+        setIsUsingMockData(true);
+        // We don't set error here because we have a fallback
       } finally {
         setIsLoading(false);
       }
@@ -96,6 +102,11 @@ const ProductList = () => {
       <header className="product-header">
         <h1>Discover Top Products</h1>
         <p>Curated just for you from the Fake Store API</p>
+        {isUsingMockData && (
+          <div className="mock-data-indicator">
+            <span className="info-icon">ℹ️</span> Currently viewing cached/offline data due to API maintenance.
+          </div>
+        )}
       </header>
 
       <div className="controls-bar">

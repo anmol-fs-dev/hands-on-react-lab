@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { mockProducts } from '../data/mockProducts';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -22,7 +23,13 @@ const ProductDetail = () => {
         const data = await response.json();
         setProduct(data);
       } catch (err) {
-        setError(err.message);
+        console.warn('API is unreachable, looking for product in mock data:', err.message);
+        const fallbackProduct = mockProducts.find(p => p.id === parseInt(id));
+        if (fallbackProduct) {
+          setProduct(fallbackProduct);
+        } else {
+          setError('Product not found in live or local backup.');
+        }
       } finally {
         setIsLoading(false);
       }
@@ -66,7 +73,7 @@ const ProductDetail = () => {
       <button className="back-btn" onClick={() => navigate(-1)}>
         &larr; Back to Products
       </button>
-      
+
       <div className="detail-card">
         <div className="detail-image">
           <img src={product.image} alt={product.title} />
@@ -79,10 +86,9 @@ const ProductDetail = () => {
             <span className="star">★</span> {product.rating?.rate} ({product.rating?.count} reviews)
           </div>
           <p className="detail-description">{product.description}</p>
-          <button 
+          <button
             className="add-to-cart-btn"
             onClick={() => addToCart(product)}
-            style={{ opacity: 0 }}
           >
             Add to Cart
           </button>
